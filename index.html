@@ -6,13 +6,11 @@
   <title>老牛算卦</title>
   <style>
     :root {
-      --gold: #f5d17a;
-      --gold-strong: #ffd987;
-      --deep-purple: #1b082f;
-      --deep-purple-2: #2b0f47;
-      --card-bg: rgba(27, 8, 47, 0.8);
-      --accent: #6b2fa1;
-      --shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+      --ink: #111111;
+      --paper: #f7f5f0;
+      --paper-dark: #e7e3db;
+      --accent: #b61e1e;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
     }
 
     * {
@@ -21,9 +19,9 @@
 
     body {
       margin: 0;
-      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-      color: var(--gold);
-      background: radial-gradient(circle at top, #3a1560, var(--deep-purple));
+      font-family: "FZKai-Z03", "STKaiti", "KaiTi", "LiSu", "STLiti", "Songti SC", "SimSun", serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top, #ffffff, #f0f0f0 45%, #d7d7d7 70%, #111111 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -46,13 +44,13 @@
       font-size: clamp(32px, 5vw, 56px);
       letter-spacing: 6px;
       margin: 0 0 8px;
-      text-shadow: 0 0 12px rgba(255, 217, 135, 0.4);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
     }
 
     .subtitle {
       margin: 0;
       font-size: clamp(14px, 2.5vw, 18px);
-      color: rgba(245, 209, 122, 0.8);
+      color: rgba(17, 17, 17, 0.7);
     }
 
     .layout {
@@ -62,12 +60,11 @@
     }
 
     .card {
-      background: var(--card-bg);
-      border: 1px solid rgba(245, 209, 122, 0.2);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 20px;
       padding: 24px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
       position: relative;
       overflow: hidden;
     }
@@ -76,7 +73,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(255, 217, 135, 0.12), transparent 60%);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.03), transparent 40%);
       pointer-events: none;
     }
 
@@ -95,16 +92,16 @@
     input {
       padding: 12px 14px;
       border-radius: 12px;
-      border: 1px solid rgba(245, 209, 122, 0.3);
-      background: rgba(16, 6, 29, 0.85);
-      color: var(--gold-strong);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: #ffffff;
+      color: var(--ink);
       font-size: 16px;
       outline: none;
     }
 
     input:focus {
-      border-color: var(--gold-strong);
-      box-shadow: 0 0 12px rgba(255, 217, 135, 0.35);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(182, 30, 30, 0.15);
     }
 
     .btn {
@@ -112,8 +109,8 @@
       padding: 14px 16px;
       border: none;
       border-radius: 999px;
-      background: linear-gradient(135deg, #f5d17a, #c2902a);
-      color: #2b0f47;
+      background: linear-gradient(135deg, #111111, #3a3a3a);
+      color: #ffffff;
       font-size: 18px;
       font-weight: 700;
       letter-spacing: 4px;
@@ -123,7 +120,7 @@
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(245, 209, 122, 0.35);
+      box-shadow: 0 12px 18px rgba(0, 0, 0, 0.25);
     }
 
     .result {
@@ -140,8 +137,8 @@
     .fortune-tag {
       font-size: 28px;
       font-weight: 700;
-      color: #fff0c3;
-      text-shadow: 0 0 12px rgba(245, 209, 122, 0.5);
+      color: var(--accent);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     }
 
     .color-display {
@@ -154,7 +151,7 @@
       width: 46px;
       height: 46px;
       border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.4);
+      border: 2px solid rgba(0, 0, 0, 0.25);
       box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.35);
     }
 
@@ -167,8 +164,8 @@
     .yi-ji div {
       padding: 12px;
       border-radius: 14px;
-      background: rgba(50, 18, 80, 0.7);
-      border: 1px solid rgba(245, 209, 122, 0.2);
+      background: var(--paper-dark);
+      border: 1px solid rgba(0, 0, 0, 0.12);
     }
 
     .yi-ji span {
@@ -187,23 +184,23 @@
       background:
         conic-gradient(
           from 0deg,
-          #f5d17a 0deg 45deg,
-          #2b0f47 45deg 90deg,
-          #f5d17a 90deg 135deg,
-          #2b0f47 135deg 180deg,
-          #f5d17a 180deg 225deg,
-          #2b0f47 225deg 270deg,
-          #f5d17a 270deg 315deg,
-          #2b0f47 315deg 360deg
+          #ffffff 0deg 45deg,
+          #111111 45deg 90deg,
+          #ffffff 90deg 135deg,
+          #111111 135deg 180deg,
+          #ffffff 180deg 225deg,
+          #111111 225deg 270deg,
+          #ffffff 270deg 315deg,
+          #111111 315deg 360deg
         );
-      opacity: 0.2;
-      filter: blur(0.4px);
+      opacity: 0.35;
+      filter: blur(0.6px);
     }
 
     .loading-mask {
       position: fixed;
       inset: 0;
-      background: rgba(13, 5, 26, 0.86);
+      background: rgba(15, 15, 15, 0.86);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -224,18 +221,18 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      border: 4px solid rgba(245, 209, 122, 0.35);
+      border: 4px solid rgba(255, 255, 255, 0.35);
       background:
-        radial-gradient(circle at center, #1b082f 0 28%, transparent 30%),
-        conic-gradient(from 0deg, #f5d17a 0deg 30deg, transparent 30deg 60deg, #f5d17a 60deg 90deg, transparent 90deg 120deg, #f5d17a 120deg 150deg, transparent 150deg 180deg, #f5d17a 180deg 210deg, transparent 210deg 240deg, #f5d17a 240deg 270deg, transparent 270deg 300deg, #f5d17a 300deg 330deg, transparent 330deg 360deg);
+        radial-gradient(circle at center, #111111 0 28%, transparent 30%),
+        conic-gradient(from 0deg, #ffffff 0deg 30deg, transparent 30deg 60deg, #ffffff 60deg 90deg, transparent 90deg 120deg, #ffffff 120deg 150deg, transparent 150deg 180deg, #ffffff 180deg 210deg, transparent 210deg 240deg, #ffffff 240deg 270deg, transparent 270deg 300deg, #ffffff 300deg 330deg, transparent 330deg 360deg);
       animation: spin 2s linear infinite;
-      box-shadow: 0 0 20px rgba(245, 209, 122, 0.45);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
     }
 
     .loading-text {
       font-size: 16px;
       letter-spacing: 4px;
-      color: rgba(245, 209, 122, 0.9);
+      color: rgba(255, 255, 255, 0.9);
     }
 
     @keyframes spin {
@@ -250,7 +247,39 @@
     .footer {
       text-align: center;
       font-size: 14px;
-      color: rgba(245, 209, 122, 0.6);
+      color: rgba(17, 17, 17, 0.55);
+    }
+
+    .section {
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      padding-top: 16px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 6px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+
+    .section-body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(17, 17, 17, 0.85);
+    }
+
+    .section-body + .section-body {
+      margin-top: 10px;
     }
 
     @media (max-width: 600px) {
@@ -292,8 +321,10 @@
       </section>
 
       <section class="card result" id="resultCard">
-        <h3>今日运势</h3>
-        <div class="fortune-tag" id="fortuneLevel">—</div>
+        <div>
+          <h3>今日运势</h3>
+          <div class="fortune-tag" id="fortuneLevel">—</div>
+        </div>
 
         <div>
           <h3>幸运颜色</h3>
@@ -316,6 +347,29 @@
             </div>
           </div>
         </div>
+
+        <div class="section">
+          <div class="section-title">您的出生资料</div>
+          <div class="section-body" id="birthInfo">—</div>
+          <div class="section-body" id="baziInfo">—</div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">日柱命理</div>
+          <div class="section-body" id="dayPillarInfo">—</div>
+          <div class="section-body" id="dayPillarDetail">—</div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">三命通会</div>
+          <div class="section-body" id="threeDestiny">—</div>
+          <div class="section-body" id="threeDestinyDetail">—</div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">卜易居士八字命运精批</div>
+          <div class="section-body" id="destinySummary">—</div>
+        </div>
       </section>
     </div>
 
@@ -328,17 +382,53 @@
   </div>
 
   <script>
-    const fortuneLevels = ["大吉", "中吉", "小吉", "平", "小凶", "中凶", "大凶"]; 
+    const fortuneLevels = ["大吉", "中吉", "小吉", "平", "小凶", "中凶", "大凶"];
     const colors = [
-      { name: "鎏金", value: "#f5d17a" },
-      { name: "幽紫", value: "#5b2b86" },
-      { name: "朱砂", value: "#c23b22" },
-      { name: "墨青", value: "#1b4d4a" },
-      { name: "月白", value: "#d8e3f0" },
-      { name: "玄青", value: "#2b2f5e" }
+      { name: "玄墨", value: "#111111" },
+      { name: "素白", value: "#f4f4f4" },
+      { name: "竹影灰", value: "#9b9b9b" },
+      { name: "青石", value: "#4c4c4c" },
+      { name: "银霜", value: "#d8d8d8" },
+      { name: "玄铁", value: "#2b2b2b" }
     ];
-    const yiList = ["写代码", "结交贵人", "运动修身", "整理房间", "学习新技能", "静心冥想", "计划旅行", "拜访长辈"]; 
-    const jiList = ["熬夜", "冲动购物", "争吵", "拖延", "暴饮暴食", "过度社交", "忘记喝水", "临时改计划"]; 
+    const yiList = ["写代码", "结交贵人", "运动修身", "整理书案", "学习新技能", "静心冥想", "安排出行", "拜访长辈"];
+    const jiList = ["熬夜", "冲动购物", "争吵", "拖延", "暴饮暴食", "过度社交", "忘记喝水", "临时改计划"];
+    const zodiacAnimals = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
+    const heavenlyStems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+    const earthlyBranches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+    const dayPillarTraits = [
+      "此日主性情温润，外柔内刚，常以包容服人，但心中自有定见。",
+      "此日元坚毅稳重，耐心十足，行事讲究章法，适合循序渐进。",
+      "此日主才思敏捷，富于灵感，乐于助人，但易受外界情绪影响。",
+      "此日元刚健果敢，行动力强，善破局开新，但需戒骄戒躁。",
+      "此日主沉稳谨慎，重承诺，贵在坚持，但偶有犹疑不决。"
+    ];
+    const destinyNotes = [
+      "命格显示贵人扶持，逢难有助，事业宜稳中求进，切忌急躁冒进。",
+      "财星入局，宜守中有财，适合稳健经营，远离高风险投资。",
+      "桃花藏于暗处，感情需真诚沟通，易因小事起波澜。",
+      "官星透出，责任感强，适合承担管理与统筹角色。"
+    ];
+    const summaryNotes = [
+      "性格内敛而不失温度，适合在专注领域深耕，收获稳固人脉与口碑。",
+      "运势起伏之中有贵人相随，宜修心养气，善用学习提升自我。",
+      "守正出奇为佳，日常多积德行善，可化解小阻力。"
+    ];
+    const timeRanges = [
+      "00:00-00:59时",
+      "01:00-02:59时",
+      "03:00-04:59时",
+      "05:00-06:59时",
+      "07:00-08:59时",
+      "09:00-10:59时",
+      "11:00-12:59时",
+      "13:00-14:59时",
+      "15:00-16:59时",
+      "17:00-18:59时",
+      "19:00-20:59时",
+      "21:00-22:59时",
+      "23:00-23:59时"
+    ];
 
     const nameInput = document.getElementById("name");
     const birthdayInput = document.getElementById("birthday");
@@ -350,6 +440,13 @@
     const colorName = document.getElementById("colorName");
     const yi = document.getElementById("yi");
     const ji = document.getElementById("ji");
+    const birthInfo = document.getElementById("birthInfo");
+    const baziInfo = document.getElementById("baziInfo");
+    const dayPillarInfo = document.getElementById("dayPillarInfo");
+    const dayPillarDetail = document.getElementById("dayPillarDetail");
+    const threeDestiny = document.getElementById("threeDestiny");
+    const threeDestinyDetail = document.getElementById("threeDestinyDetail");
+    const destinySummary = document.getElementById("destinySummary");
 
     const hashString = (value) => {
       let hash = 0;
@@ -381,6 +478,14 @@
         const color = pickItem(colors, seed >> 2);
         const yiPick = pickItem(yiList, seed >> 3);
         let jiPick = pickItem(jiList, seed >> 4);
+        const birthDate = new Date(`${birthday}T00:00:00`);
+        const birthYear = birthDate.getFullYear();
+        const zodiac = zodiacAnimals[(birthYear - 4 + 12) % 12];
+        const timeRange = pickItem(timeRanges, seed >> 6);
+        const yearPillar = `${heavenlyStems[(birthYear - 4 + 10) % 10]}${earthlyBranches[(birthYear - 4 + 12) % 12]}`;
+        const monthPillar = `${pickItem(heavenlyStems, seed >> 7)}${pickItem(earthlyBranches, seed >> 8)}`;
+        const dayPillar = `${pickItem(heavenlyStems, seed >> 9)}${pickItem(earthlyBranches, seed >> 10)}`;
+        const hourPillar = `${pickItem(heavenlyStems, seed >> 11)}${pickItem(earthlyBranches, seed >> 12)}`;
 
         if (yiPick === jiPick) {
           jiPick = pickItem(jiList, seed >> 5);
@@ -391,6 +496,14 @@
         colorName.textContent = `${color.name} · ${color.value}`;
         yi.textContent = yiPick;
         ji.textContent = jiPick;
+
+        birthInfo.textContent = `生日（阳历）：${birthday} ${timeRange} 生肖为${zodiac}`;
+        baziInfo.textContent = `命盘（八字）：${yearPillar}年 ${monthPillar}月 ${dayPillar}日 ${hourPillar}时`;
+        dayPillarInfo.textContent = `出生之日柱为“${dayPillar}”，日主为命中之主，主性情与处世。`;
+        dayPillarDetail.textContent = pickItem(dayPillarTraits, seed >> 13);
+        threeDestiny.textContent = `《三命通会》有言：${pickItem(destinyNotes, seed >> 14)}`;
+        threeDestinyDetail.textContent = `今岁运势以${fortune}为主调，宜以${yiPick}助运，慎防${jiPick}扰心。`;
+        destinySummary.textContent = `${pickItem(summaryNotes, seed >> 15)} 若能顺势而为，岁月自有回响。`;
 
         loadingMask.classList.remove("active");
       }, 2000);
