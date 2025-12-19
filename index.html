@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>老牛算卦</title>
+  <style>
+    :root {
+      --gold: #f5d17a;
+      --gold-strong: #ffd987;
+      --deep-purple: #1b082f;
+      --deep-purple-2: #2b0f47;
+      --card-bg: rgba(27, 8, 47, 0.8);
+      --accent: #6b2fa1;
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--gold);
+      background: radial-gradient(circle at top, #3a1560, var(--deep-purple));
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .page {
+      width: min(960px, 100%);
+      display: grid;
+      gap: 24px;
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+    }
+
+    .title {
+      font-size: clamp(32px, 5vw, 56px);
+      letter-spacing: 6px;
+      margin: 0 0 8px;
+      text-shadow: 0 0 12px rgba(255, 217, 135, 0.4);
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: clamp(14px, 2.5vw, 18px);
+      color: rgba(245, 209, 122, 0.8);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(245, 209, 122, 0.2);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 217, 135, 0.12), transparent 60%);
+      pointer-events: none;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    input {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(245, 209, 122, 0.3);
+      background: rgba(16, 6, 29, 0.85);
+      color: var(--gold-strong);
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--gold-strong);
+      box-shadow: 0 0 12px rgba(255, 217, 135, 0.35);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f5d17a, #c2902a);
+      color: #2b0f47;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(245, 209, 122, 0.35);
+    }
+
+    .result {
+      display: grid;
+      gap: 16px;
+    }
+
+    .result h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    .fortune-tag {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff0c3;
+      text-shadow: 0 0 12px rgba(245, 209, 122, 0.5);
+    }
+
+    .color-display {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .color-block {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.35);
+    }
+
+    .yi-ji {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .yi-ji div {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(50, 18, 80, 0.7);
+      border: 1px solid rgba(245, 209, 122, 0.2);
+    }
+
+    .yi-ji span {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .bagua {
+      position: absolute;
+      right: -60px;
+      top: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background:
+        conic-gradient(
+          from 0deg,
+          #f5d17a 0deg 45deg,
+          #2b0f47 45deg 90deg,
+          #f5d17a 90deg 135deg,
+          #2b0f47 135deg 180deg,
+          #f5d17a 180deg 225deg,
+          #2b0f47 225deg 270deg,
+          #f5d17a 270deg 315deg,
+          #2b0f47 315deg 360deg
+        );
+      opacity: 0.2;
+      filter: blur(0.4px);
+    }
+
+    .loading-mask {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 5, 26, 0.86);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 20;
+    }
+
+    .loading-mask.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .spinner {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid rgba(245, 209, 122, 0.35);
+      background:
+        radial-gradient(circle at center, #1b082f 0 28%, transparent 30%),
+        conic-gradient(from 0deg, #f5d17a 0deg 30deg, transparent 30deg 60deg, #f5d17a 60deg 90deg, transparent 90deg 120deg, #f5d17a 120deg 150deg, transparent 150deg 180deg, #f5d17a 180deg 210deg, transparent 210deg 240deg, #f5d17a 240deg 270deg, transparent 270deg 300deg, #f5d17a 300deg 330deg, transparent 330deg 360deg);
+      animation: spin 2s linear infinite;
+      box-shadow: 0 0 20px rgba(245, 209, 122, 0.45);
+    }
+
+    .loading-text {
+      font-size: 16px;
+      letter-spacing: 4px;
+      color: rgba(245, 209, 122, 0.9);
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      color: rgba(245, 209, 122, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 20px;
+      }
+
+      .yi-ji {
+        grid-template-columns: 1fr;
+      }
+
+      .bagua {
+        width: 130px;
+        height: 130px;
+        right: -50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <h1 class="title">老牛算卦</h1>
+      <p class="subtitle">今日运势，一卦洞天机</p>
+    </div>
+
+    <div class="layout">
+      <section class="card">
+        <div class="bagua"></div>
+        <div class="form-group">
+          <label for="name">姓名</label>
+          <input id="name" type="text" placeholder="请输入姓名" />
+        </div>
+        <div class="form-group">
+          <label for="birthday">出生日期</label>
+          <input id="birthday" type="date" />
+        </div>
+        <button class="btn" id="fortuneBtn">立即占卜</button>
+      </section>
+
+      <section class="card result" id="resultCard">
+        <h3>今日运势</h3>
+        <div class="fortune-tag" id="fortuneLevel">—</div>
+
+        <div>
+          <h3>幸运颜色</h3>
+          <div class="color-display">
+            <div class="color-block" id="colorBlock"></div>
+            <div id="colorName">—</div>
+          </div>
+        </div>
+
+        <div>
+          <h3>宜 / 忌</h3>
+          <div class="yi-ji">
+            <div>
+              <span>宜</span>
+              <div id="yi">—</div>
+            </div>
+            <div>
+              <span>忌</span>
+              <div id="ji">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer">占卜结果仅供娱乐，切莫执念。</div>
+  </div>
+
+  <div class="loading-mask" id="loadingMask">
+    <div class="spinner"></div>
+    <div class="loading-text">正在演算天机…</div>
+  </div>
+
+  <script>
+    const fortuneLevels = ["大吉", "中吉", "小吉", "平", "小凶", "中凶", "大凶"]; 
+    const colors = [
+      { name: "鎏金", value: "#f5d17a" },
+      { name: "幽紫", value: "#5b2b86" },
+      { name: "朱砂", value: "#c23b22" },
+      { name: "墨青", value: "#1b4d4a" },
+      { name: "月白", value: "#d8e3f0" },
+      { name: "玄青", value: "#2b2f5e" }
+    ];
+    const yiList = ["写代码", "结交贵人", "运动修身", "整理房间", "学习新技能", "静心冥想", "计划旅行", "拜访长辈"]; 
+    const jiList = ["熬夜", "冲动购物", "争吵", "拖延", "暴饮暴食", "过度社交", "忘记喝水", "临时改计划"]; 
+
+    const nameInput = document.getElementById("name");
+    const birthdayInput = document.getElementById("birthday");
+    const fortuneBtn = document.getElementById("fortuneBtn");
+    const loadingMask = document.getElementById("loadingMask");
+
+    const fortuneLevel = document.getElementById("fortuneLevel");
+    const colorBlock = document.getElementById("colorBlock");
+    const colorName = document.getElementById("colorName");
+    const yi = document.getElementById("yi");
+    const ji = document.getElementById("ji");
+
+    const hashString = (value) => {
+      let hash = 0;
+      for (let i = 0; i < value.length; i += 1) {
+        hash = (hash << 5) - hash + value.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash);
+    };
+
+    const pickItem = (arr, seed) => arr[seed % arr.length];
+
+    const buildFortune = () => {
+      const name = nameInput.value.trim();
+      const birthday = birthdayInput.value;
+
+      if (!name || !birthday) {
+        alert("请输入姓名和出生日期，方可占卜。");
+        return;
+      }
+
+      loadingMask.classList.add("active");
+
+      setTimeout(() => {
+        const today = new Date().toISOString().slice(0, 10);
+        const seed = hashString(`${name}-${birthday}-${today}`);
+
+        const fortune = pickItem(fortuneLevels, seed);
+        const color = pickItem(colors, seed >> 2);
+        const yiPick = pickItem(yiList, seed >> 3);
+        let jiPick = pickItem(jiList, seed >> 4);
+
+        if (yiPick === jiPick) {
+          jiPick = pickItem(jiList, seed >> 5);
+        }
+
+        fortuneLevel.textContent = fortune;
+        colorBlock.style.background = color.value;
+        colorName.textContent = `${color.name} · ${color.value}`;
+        yi.textContent = yiPick;
+        ji.textContent = jiPick;
+
+        loadingMask.classList.remove("active");
+      }, 2000);
+    };
+
+    fortuneBtn.addEventListener("click", buildFortune);
+  </script>
+</body>
+</html>
